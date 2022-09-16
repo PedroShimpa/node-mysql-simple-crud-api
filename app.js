@@ -95,6 +95,6 @@ function apiResponse(results) {
 	return JSON.stringify({ "status": 200, "error": null, "response": results });
 }
 
-app.listen(process.env.SERVER_PORT, () => {
+app.listen(3000, () => {
 	console.log('Server started on port ' + process.env.SERVER_POR + '...');
 });
