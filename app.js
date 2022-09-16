@@ -38,7 +38,7 @@ app.get('/api/clientes', (req, res) => {
  * @return response()
  */
 app.get('/api/clientes/:id', (req, res) => {
-	let sqlQuery = "SELECT (id, nome, sobrenome) FROM clientes WHERE id=" + req.params.id;
+	let sqlQuery = "SELECT (id, nome, sobrenome,created_at as criado_em) FROM clientes WHERE id=" + req.params.id;
 
 	let query = conn.query(sqlQuery, (err, results) => {
 		if (err) throw err;
