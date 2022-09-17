@@ -46,13 +46,18 @@ app.get('/api/clientes/:id', (req, res) => {
 	});
 });
 
-
 /**
  * Create New Item
  *
  * @return response()
  */
 app.post('/api/clientes', (req, res) => {
+	if(!req.body.nome) {
+		return res.status(500).send("O nome não pode estar vazio");
+	}
+	if(!req.body.sobrenome) {
+		return res.status(500).send("O sobrenome não pode estar vazio");
+	}
 	let data = { nome: req.body.nome, sobrenome: req.body.sobrenome };
 
 	let sqlQuery = "INSERT INTO clientes SET ?";
@@ -64,7 +69,7 @@ app.post('/api/clientes', (req, res) => {
 });
 app.post('/api/injetar/clientes', (req, res) => {
 	let data = []
-	for (let index = 30; index < 200; index++) {
+	for (let index = 14000; index < 50000; index++) {
 		data = {
 			nome: 'NOME INJETADO ' + index,
 			sobrenome: 'SOBRENOME INJETADO ' + index
