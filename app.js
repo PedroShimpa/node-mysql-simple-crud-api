@@ -24,7 +24,7 @@ conn.connect((err) => {
  * @return response()
  */
 app.get('/api/clientes', (req, res) => {
-	let sqlQuery = "SELECT id, nome, sobrenome FROM clientes";
+	let sqlQuery = "SELECT id, nome, sobrenome, created_at as criado_em FROM clientes";
 
 	let query = conn.query(sqlQuery, (err, results) => {
 		if (err) throw err;
@@ -46,6 +46,7 @@ app.get('/api/clientes/:id', (req, res) => {
 	});
 });
 
+
 /**
  * Create New Item
  *
@@ -60,6 +61,19 @@ app.post('/api/clientes', (req, res) => {
 		if (err) throw err;
 		res.send(apiResponse(results));
 	});
+});
+app.post('/api/injetar/clientes', (req, res) => {
+	let data = []
+	for (let index = 30; index < 200; index++) {
+		data = {
+			nome: 'NOME INJETADO ' + index,
+			sobrenome: 'SOBRENOME INJETADO ' + index
+		}
+		let sqlQuery = "INSERT INTO clientes SET ?";
+		let query = conn.query(sqlQuery, data);
+	}
+
+	res.send('injetado');
 });
 
 /**
